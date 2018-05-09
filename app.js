@@ -1,6 +1,8 @@
 // require dependencies
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const passport = require('passport');
 
 // define express app
 const app = express();
@@ -9,6 +11,12 @@ const app = express();
 const users = require('./routes/api/users');
 const quotes = require('./routes/api/quotes');
 const profile = require('./routes/api/profile');
+
+// body-parser midleware
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
 
 // get mongoDBURI from config.js file
 const mongoDB = require('./config/config').mongoDBURI;
@@ -19,6 +27,11 @@ mongoose.connect(mongoDB).then(() => {
 }).catch(err => {
     console.log('Could not connect to MongoDB', err);
 });
+
+// Passport middleware
+app.use(passport.initialize());
+// Passport Config
+require('./config/passport')(passport);
 
 // create testing route
 app.get('/', (req, res) => {
