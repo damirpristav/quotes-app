@@ -5,6 +5,11 @@ const mongoose = require('mongoose');
 // define express app
 const app = express();
 
+// require routes api files
+const users = require('./routes/api/users');
+const quotes = require('./routes/api/quotes');
+const profile = require('./routes/api/profile');
+
 // get mongoDBURI from config.js file
 const mongoDB = require('./config/config').mongoDBURI;
 
@@ -19,6 +24,11 @@ mongoose.connect(mongoDB).then(() => {
 app.get('/', (req, res) => {
     res.send('Testing...');
 });
+
+// use routes
+app.use('/api/users', users);
+app.use('/api/quotes', quotes);
+app.use('/api/profile', profile);
 
 // define port
 const port = process.env.PORT || 4444;
