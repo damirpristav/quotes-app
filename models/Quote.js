@@ -10,8 +10,11 @@ const QuoteSchema = new Schema({
         required: true
     },
     author: {
-        type: Schema.Types.ObjectId,
-        ref: 'users'
+        type: String,
+        required: true
+    },
+    addedBy: {
+        type: String
     },
     image: {
         type: String,
