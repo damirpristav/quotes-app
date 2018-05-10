@@ -10,7 +10,6 @@ const app = express();
 // require routes api files
 const users = require('./routes/api/users');
 const quotes = require('./routes/api/quotes');
-const profile = require('./routes/api/profile');
 
 // body-parser midleware
 // parse application/x-www-form-urlencoded
@@ -41,7 +40,6 @@ app.get('/', (req, res) => {
 // use routes
 app.use('/api/users', users);
 app.use('/api/quotes', quotes);
-app.use('/api/profile', profile);
 
 // define port
 const port = process.env.PORT || 4444;

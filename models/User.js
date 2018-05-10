@@ -35,6 +35,10 @@ const UserSchema = new Schema({
     },
     activationToken: {
         type: String
+    },
+    image: {
+        type: String,
+        default: ''
     }
 });
 

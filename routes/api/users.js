@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const cryptoRandomString = require('crypto-random-string');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
+const Email = require('email-templates');
 // define router
 const router = express.Router();
 
@@ -12,6 +13,21 @@ const User = require('../../models/User');
 
 // get config
 const config = require('../../config/config');
+
+// get validation functions
+const validateRegistrationFields = require('../../validation/register');
+const validateLoginFields = require('../../validation/login');
+
+// Create new Email
+const email = new Email({
+    message: {
+        from: 'damirpristav@gmail.com'
+    },
+    send: true,
+    transport: {
+        jsonTransport: true
+    }
+});
 
 // @route  GET api/users/test
 // @desc   Testing users route
@@ -34,7 +50,12 @@ router.get('/', (req, res) => {
 // @desc   Register user
 // @access Public
 router.post('/register', (req, res) => {
-    let errors = {};
+    const {errors, isValid} = validateRegistrationFields(req.body);
+
+    // Check if fields are not valid
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
 
     // Check if user with this email already exists
     User.findOne({ email: req.body.email }).then(user => {
@@ -43,7 +64,9 @@ router.post('/register', (req, res) => {
             errors.message = 'User with this email already exists. Please choose another email.';
             return res.status(400).json(errors);
         }else{
+            // check if user with this username already exists
             User.findOne({ username: req.body.username }).then(user => {
+                // if username exists return error
                 if(user){
                     errors.message = 'User with this username already exists. Please choose another username.';
                     return res.status(400).json(errors);
@@ -65,7 +88,23 @@ router.post('/register', (req, res) => {
                             newUser.password = hash;
                             // save user
                             newUser.save().then(user => {
+                                // send json response
                                 res.json({ message: `User ${user.username} successfully created!` });
+                                // send email to user to verify his/hers email
+                                email.send({
+                                    template: 'verification',
+                                    message: {
+                                        to: user.email
+                                    },
+                                    locals: {
+                                        name: user.name,
+                                        activationToken: user.activationToken
+                                    }
+                                }).then(() => {
+                                    console.log('Message sent!');
+                                }).catch(err => {
+                                    console.log('Message cannot be sent', err);
+                                });
                             }).catch(err => {
                                 res.json({ message: 'An error ocurred. User registration failed.' });
                                 console.log(err);
@@ -82,6 +121,13 @@ router.post('/register', (req, res) => {
 // @desc   Login user
 // @access Public
 router.post('/login', (req, res) => {
+    const {errors, isValid} = validateLoginFields(req.body);
+
+    // Check if fields are not valid
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
+
     const email = req.body.email;
     const password = req.body.password;
 
@@ -125,10 +171,31 @@ router.post('/login', (req, res) => {
     });
 });
 
+// @route  GET api/users/verify/:activationToken
+// @desc   Verify user email
+// @access Public
+router.get('/verify/:activationToken', (req, res) => {
+    // Find user with activationToken from params
+    User.findOne({ activationToken: req.params.activationToken }).then(user => {
+        if(!user){
+            return res.status(404).json({ message: 'User not found!' });
+        }else{
+            user.active = true;
+            user.activationToken = '';
+            user.save().then(user => {
+                res.json({ message: 'Email verified. User is now active!' });
+            }).catch(err => {
+                res.status(400).json({ message: 'Error ocurred! User cannot be activated.' });
+                console.log(err);
+            });
+        }
+    })
+});
+
 // @route  DELETE api/users/delete/:id
 // @desc   Delete user
 // @access Private
-router.delete('/delete/:id', (req, res) => {
+router.delete('/delete/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
     let errors = {};
 
     // Find user with id from url
