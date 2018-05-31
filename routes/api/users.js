@@ -8,7 +8,6 @@ const Email = require('email-templates');
 const nodeMailer = require('nodemailer');
 const multer = require('multer');
 const fs = require('fs');
-const config = require('config');
 // define router
 const router = express.Router();
 
