@@ -28,7 +28,7 @@ const email = new Email({
     message: {
         from: 'damirpristav@gmail.com'
     },
-    //send: true,
+    send: true,
     transport: {
         jsonTransport: true
     }
