@@ -35,9 +35,10 @@ const email = new Email({
     message: {
         from: config.emailFrom
     },
-    send: true,
-    transport: transporter,
-    preview: false
+    //send: true,
+    transport: {
+        jsonTransport: true
+    }
 });
 
 // @route  GET api/users/test
