@@ -36,11 +36,6 @@ app.use(passport.initialize());
 // Passport Config
 require('./config/passport')(passport);
 
-// create testing route
-app.get('/', (req, res) => {
-    res.send('Testing...');
-});
-
 // use routes
 app.use('/api/users', users);
 app.use('/api/quotes', quotes);
