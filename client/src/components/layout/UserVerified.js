@@ -9,7 +9,6 @@ class UserVerified extends Component{
         const token = this.props.match.params.token;
         if(token && token !== 'undefined'){
             this.props.onUserVerify(token);
-            console.log(token);
         }
     }
 

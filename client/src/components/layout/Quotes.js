@@ -17,7 +17,6 @@ class Quotes extends Component{
     render(){
         const { quotes, loading } = this.props;
         let quotesContent;
-        console.log(quotes);
         if(quotes === null || loading){
             quotesContent = <Loader />;
         }else{

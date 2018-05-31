@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
 
         res.json(quotes);
     }).catch(err => {
-        console.log(err); 
+        //console.log(err); 
     });
 });
 
@@ -48,7 +48,7 @@ router.get('/:user_id', (req, res) => {
         //console.log(quotes);
         res.json(quotes);
     }).catch(err => {
-        console.log(err); 
+        //console.log(err); 
     });
 });
 
@@ -65,7 +65,7 @@ router.get('/username/:username', (req, res) => {
 
             res.json(quotes);
         }).catch(err => {
-            console.log(err); 
+            //console.log(err); 
         });
     });
 });
@@ -82,7 +82,7 @@ router.get('/quote/:quote_id', passport.authenticate('jwt', {session: false}), (
         
         res.json(quote);
     }).catch(err => {
-        console.log(err); 
+        //console.log(err); 
     });
 });
 
@@ -174,7 +174,7 @@ router.put('/edit/:id', passport.authenticate('jwt', {session: false}), (req, re
             res.json({ message: 'Quote updated!', quote: { text: quote.text, author: quote.author } });
         }).catch(err => {
             res.status(400).json({ message: 'Quote update failed!' });
-            console.log(err);
+            //console.log(err);
         });
     }).catch(err => {
         res.status(404).json({ message: 'Quote not found!' });

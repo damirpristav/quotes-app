@@ -59,7 +59,6 @@ export const verifyUserEmail = (token) => {
                     type: actionTypes.VERIFY_USER_EMAIL,
                     payload: res.data
                 });
-                console.log(res.data);
             })
             .catch(err => {
                 if(err.response && err.response.data){
@@ -67,7 +66,6 @@ export const verifyUserEmail = (token) => {
                         type: actionTypes.VERIFY_USER_EMAIL,
                         payload: err.response.data
                     });
-                    console.log(err.response.data);
                 }
             });
     }
@@ -140,7 +138,6 @@ export const getCurrentUser = () => {
                     type: actionTypes.GET_CURRENT_USER,
                     payload: null
                 });
-                console.log(err.response.data);
             });
     }
 }
@@ -150,7 +147,6 @@ export const updateUser = (userId, userData, history) => {
     return dispatch => {
         axios.put(`/api/users/update/${userId}`, userData)
             .then(res => {
-                console.log(res.data);
                 dispatch({
                     type: actionTypes.UPDATE_USER,
                     payload: res.data
@@ -173,7 +169,6 @@ export const updateImage = (userId) => {
     return dispatch => {
         axios.put(`/api/users/update/image/${userId}`)
             .then(res => {
-                console.log(res.data);
                 dispatch({
                     type: actionTypes.DELETE_USER_IMAGE,
                     payload: res.data

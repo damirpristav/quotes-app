@@ -95,7 +95,6 @@ class EditProfile extends Component{
 
     removeProfileImageHandler(e){
         e.preventDefault();
-        console.log('image will be removed!');
         this.props.onUpdateUserImage(this.props.user.id);
     }
 

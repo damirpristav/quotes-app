@@ -18,10 +18,7 @@ class MyProfile extends Component{
 
         const confirmMessage = window.confirm('Are you sure you want to delete your account ?');
         if(confirmMessage){
-            console.log(this.props.user.id);
             this.props.onUserDelete(this.props.user.id);
-        }else{
-            console.log('No i am not sure');
         }
     }
 

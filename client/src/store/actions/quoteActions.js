@@ -54,7 +54,6 @@ export const getUserQuotes = (userId) => {
             })
             .catch(err => {
                 dispatch(noQuotes());
-                console.log(err.response.data);
             });
     }
 }
@@ -85,7 +84,6 @@ export const getQuoteById = (quoteId) => {
             })
             .catch(err => {
                 dispatch(quoteNotFound(err.response.data));
-                console.log(err.response.data);
             });
     }
 }
@@ -161,12 +159,10 @@ export const deleteQuote = (quoteId) => {
             .then(res => { 
                 dispatch(quoteDeleted(res.data, quoteId));
                 dispatch(getCurrentUser());
-                console.log(res.data);
             })
             .catch(err => { 
                 if(err.response || err.response.data){
                     dispatch(quoteNotDeleted(err.response.data));
-                    console.log(err.response.data);
                 }
             });
     }

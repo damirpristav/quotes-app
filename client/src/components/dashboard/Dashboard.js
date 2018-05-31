@@ -43,9 +43,6 @@ class Dashboard extends Component{
         const { currentUser, loadingUser } = this.props;
         let dashboardContent;
 
-        console.log(currentUser);
-        console.log(loadingUser);
-
         if( currentUser === null || isEmpty(currentUser) || loadingUser ){
             dashboardContent = (<Loader />);
         }else{
