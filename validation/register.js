@@ -15,11 +15,11 @@ const validateRegistrationFields = (data) => {
     data.confirmPassword = !isEmpty(data.confirmPassword) ? data.confirmPassword : '';
 
     if(isEmpty(data.fname)){
-        errors.fname = 'This field cannot be empty!';
+        errors.fname = 'First name is required!';
     }
 
     if(isEmpty(data.lname)){
-        errors.lname = 'This field cannot be empty!';
+        errors.lname = 'Last name is required!';
     }
 
     if(!Validator.isLength(data.username, {min: 4})){

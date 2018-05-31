@@ -39,7 +39,40 @@ const UserSchema = new Schema({
     image: {
         type: String,
         default: ''
-    }
+    },
+    quotesCreated: {
+        type: Boolean,
+        default: false
+    },
+    about: {
+        type: String,
+        default: ''
+    },
+    social: {
+        twitter: {
+            type: String
+        },
+        facebook: {
+            type: String
+        },
+        linkedin: {
+            type: String
+        },
+        youtube: {
+            type: String
+        },
+        instagram: {
+            type: String
+        }
+    },
+    userQuotes: [
+        {
+            q: {
+                type: Schema.Types.ObjectId,
+                ref: 'quotes'
+            }
+        }
+    ]
 });
 
 module.exports = User = mongoose.model('users', UserSchema);

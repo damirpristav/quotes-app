@@ -11,6 +11,9 @@ const app = express();
 const users = require('./routes/api/users');
 const quotes = require('./routes/api/quotes');
 
+// make uploads folder publicly available
+app.use('/uploads', express.static('uploads'));
+
 // body-parser midleware
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -42,7 +45,7 @@ app.use('/api/users', users);
 app.use('/api/quotes', quotes);
 
 // define port
-const port = process.env.PORT || 4444;
+const port = process.env.PORT || 5000;
 
 // listen to created port
 app.listen(port, () => {
