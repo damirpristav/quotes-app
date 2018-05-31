@@ -5,8 +5,10 @@ const cryptoRandomString = require('crypto-random-string');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const Email = require('email-templates');
+const nodeMailer = require('nodemailer');
 const multer = require('multer');
 const fs = require('fs');
+const config = require('config');
 // define router
 const router = express.Router();
 
@@ -24,14 +26,19 @@ const validateLoginFields = require('../../validation/login');
 const validateUpdateUserFields = require('../../validation/userUpdate');
 
 // Create new Email
+let transporter = nodeMailer.createTransport({
+    sendmail: true,
+    newline: 'unix',
+    path: '/usr/sbin/sendmail'
+});
+
 const email = new Email({
     message: {
-        from: 'damirpristav@gmail.com'
+        from: config.emailFrom
     },
     send: true,
-    transport: {
-        jsonTransport: true
-    }
+    transport: transporter,
+    preview: false
 });
 
 // @route  GET api/users/test
