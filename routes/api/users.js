@@ -28,7 +28,7 @@ const validateUpdateUserFields = require('../../validation/userUpdate');
 const emailCreds = require('../../config/email_creds');
 
 let transporter = nodeMailer.createTransport({
-    host: 'gator3100.hostgator.com',
+    host: emailCreds.emailHost,
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
