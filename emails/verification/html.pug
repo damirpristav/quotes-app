@@ -1,4 +1,5 @@
-p Hi #{name},
-p Please verify your email by clicking the below link 
+- var welcome = 'Hi, ' + name
+h1= welcome,
+h5 Please verify your email by clicking the below link 
 - var href = 'https://mysterious-badlands-91514.herokuapp.com/user-verified/' + activationToken
 a(href=href) Verify my email

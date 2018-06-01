@@ -128,6 +128,11 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 loading: true
             }
+        case actionTypes.RESET_USER_MESSAGE:
+            return{
+                ...state,
+                message: null
+            }
         default: 
             return state;
     }

@@ -139,7 +139,7 @@ router.post('/register', (req, res) => {
                                         to: user.email
                                     },
                                     locals: {
-                                        name: user.name,
+                                        name: user.fname,
                                         activationToken: user.activationToken
                                     }
                                 }).then(() => {

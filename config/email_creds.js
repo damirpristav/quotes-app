@@ -8,6 +8,6 @@ if(process.env.NODE_ENV === 'production'){
     module.exports = {
         emailAccount: 'procoder2018@damirp.com',
         emailPassword: 'J4FDz@P0a4HO',
-        emailHost: 'damirp.com'
+        emailHost: 'gator3100.hostgator.com'
     }
 }

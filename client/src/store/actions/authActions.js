@@ -207,3 +207,10 @@ export const loading = () => {
         type: actionTypes.LOADING_AUTH
     }
 }
+
+// Reset user message 
+export const resetUserMessage = () => {
+    return{
+        type: actionTypes.RESET_USER_MESSAGE
+    }
+}

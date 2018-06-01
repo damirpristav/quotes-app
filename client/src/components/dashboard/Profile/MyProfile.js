@@ -13,6 +13,12 @@ class MyProfile extends Component{
         this.props.onGetCurrentUser();
     }
 
+    componentWillUnmount(){
+        if(this.props.notification){
+            this.props.onResetUserMessage();
+        }
+    }
+
     deleteAccountHandler(e){
         e.preventDefault();
 
@@ -96,7 +102,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return{
         onGetCurrentUser: () => dispatch( actions.getCurrentUser() ),
-        onUserDelete: (id) => dispatch( actions.deleteUser(id) )
+        onUserDelete: (id) => dispatch( actions.deleteUser(id) ),
+        onResetUserMessage: () => dispatch( actions.resetUserMessage() )
     }
 }
 
