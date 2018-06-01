@@ -20,7 +20,8 @@ class Quotes extends Component{
         if(quotes === null || loading){
             quotesContent = <Loader />;
         }else{
-            quotesContent = quotes.map(quote => (
+            let quotesReversed = quotes.reverse();
+            quotesContent = quotesReversed.map(quote => (
                 <Quote key={quote._id} text={quote.text} author={quote.author} user={quote.user.username} />
             ));
         }
