@@ -25,20 +25,24 @@ const validateLoginFields = require('../../validation/login');
 const validateUpdateUserFields = require('../../validation/userUpdate');
 
 // Create new Email
+const emailCreds = require('../../config/email_creds');
+
 let transporter = nodeMailer.createTransport({
-    sendmail: true,
-    newline: 'unix',
-    path: '/usr/sbin/sendmail'
+    host: 'gator3100.hostgator.com',
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+        user: emailCreds.emailAccount, // generated user
+        pass: emailCreds.emailPassword // generated password
+    }
 });
 
 const email = new Email({
     message: {
-        from: config.emailFrom
+        from: emailCreds.emailAccount
     },
     //send: true,
-    transport: {
-        jsonTransport: true
-    }
+    transport: transporter
 });
 
 // @route  GET api/users/test
