@@ -196,7 +196,7 @@ router.post('/login', (req, res) => {
                         lastName: user.lname
                     }
                     // Sign Token
-                    jwt.sign(payload, config.secreteOrPrivateKey, { expiresIn: 60*60 }, (err, token) => {
+                    jwt.sign(payload, config.secretOrPrivateKey, { expiresIn: 60*60 }, (err, token) => {
                         res.json({ 
                             message: 'User was successfully logged in!',
                             loggedin: true,
